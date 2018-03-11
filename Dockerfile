@@ -12,7 +12,9 @@ RUN apt-get update \
     && apt-get -y dist-upgrade \
     && apt-get -y install \
        wget dnsutils netcat curl telnet iputils-ping links \
-       git vim-nox gettext-base bash-completion jq patch gawk
+       git vim-nox gettext-base bash-completion jq patch gawk \
+    && apt-get clean
+
 
 RUN mkdir -p /etc/bash.bashrc.d \
     && wget https://raw.githubusercontent.com/UncleTawnos/bashmash/master/system_aliases -O /etc/bash.bashrc.d/system_aliases \
