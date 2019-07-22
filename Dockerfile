@@ -6,13 +6,16 @@ RUN mkdir -p /etc/apt/conf.d \
     && echo 'APT::Install-Recommends "false";' > /etc/apt/conf.d/recommends.conf \
     && echo 'APT::Install-Suggests "false";' >> /etc/apt/conf.d/recommends.conf
 
-
+#Fix debian slim missing man dirs errors
+RUN seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{}
 RUN apt-get update \
     && apt-get -y install apt-utils \
     && apt-get -y dist-upgrade \
+    && apt-get -y auto-remove \
     && apt-get -y install \
        wget dnsutils netcat curl telnet iputils-ping links \
        git vim-nox gettext-base bash-completion jq patch gawk \
+       mysql-client postgresql-client redis-tools \
     && apt-get clean
 
 
