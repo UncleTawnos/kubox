@@ -14,6 +14,7 @@ RUN apt-get update \
     && apt-get -y auto-remove \
     && apt-get -y install \
        wget dnsutils netcat curl telnet iputils-ping links \
+       gnupg net-tools inetutils-traceroute \
        git vim-nox gettext-base bash-completion jq patch gawk \
        mysql-client postgresql-client redis-tools \
     && apt-get clean
