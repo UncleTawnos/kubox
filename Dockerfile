@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -13,7 +13,7 @@ RUN apt-get update \
     && apt-get -y dist-upgrade \
     && apt-get -y auto-remove \
     && apt-get -y install \
-       wget dnsutils netcat curl telnet iputils-ping links \
+       wget dnsutils curl telnet iputils-ping links \
        gnupg net-tools inetutils-traceroute \
        git vim-nox gettext-base bash-completion jq patch gawk \
        default-mysql-client postgresql-client redis-tools kafkacat \

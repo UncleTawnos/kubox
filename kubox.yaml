@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kubox
+  name: kubox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubox
+  template:
+    metadata:
+      labels:
+        app: kubox
+        tier: tools
+    spec:
+      containers:
+        - name: kubox
+          image: uncletawnos/kubox:v3.0
+          command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
+          resources:
+            limits:
+              memory: "200M"
