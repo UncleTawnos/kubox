@@ -8,6 +8,8 @@ RUN mkdir -p /etc/apt/conf.d \
 
 #Fix debian slim missing man dirs errors
 RUN seq 1 8 | xargs -I{} mkdir -p /usr/share/man/man{}
+
+#Update & install packages
 RUN apt-get update \
     && apt-get -y install apt-utils \
     && apt-get -y dist-upgrade \
