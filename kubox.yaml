@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: kubox
-          image: uncletawnos/kubox:v3.0
+          image: uncletawnos/kubox:v3.3
           command: ["/bin/bash", "-ec", "while :; do echo '.'; sleep 5 ; done"]
           resources:
             limits:

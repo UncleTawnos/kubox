@@ -16,23 +16,27 @@ RUN apt-get update \
     && apt-get -y auto-remove \
     && apt-get -y install \
        wget dnsutils curl telnet iputils-ping links \
-       gnupg net-tools inetutils-traceroute \
+       gnupg net-tools inetutils-traceroute certbot \
        apt-transport-https ca-certificates curl gnupg lsb-release \
        git vim-nox gettext-base bash-completion jq patch gawk \
        default-mysql-client postgresql-client redis-tools kafkacat \
     && apt-get clean
 
 
-RUN mkdir -p /opt/kubox
+RUN mkdir -p /opt/kubox/bin
 WORKDIR /opt/kubox
-COPY scripts /tmp/scripts
-RUN ls -lR /tmp/
-RUN chmod +x /tmp/scripts/*.sh
+RUN echo "export PATH=/opt/kubox/bin:${PATH}" >> /root/.bashrc
+
+
+COPY install /tmp/install
+COPY bin /opt/kubox/bin
+RUN chmod +x /tmp/install/*.sh \
+    && chmod +x /opt/kubox/bin/*
 
 #Install AZ CLI
-RUN /tmp/scripts/install_azcli.sh
+RUN /tmp/install/install_azcli.sh
 #Install KRR
-RUN /tmp/scripts/install_krr.sh
+RUN /tmp/install/install_krr.sh
 
 
 RUN mkdir -p /etc/bash.bashrc.d \
@@ -43,6 +47,5 @@ RUN mkdir -p /etc/bash.bashrc.d \
     && patch --dry-run /etc/bash.bashrc < /tmp/bashrc.patch \
     && patch /etc/bash.bashrc < /tmp/bashrc.patch
 
-RUN rm -rf /tmp/scripts
 
 CMD ["/bin/bash"]
